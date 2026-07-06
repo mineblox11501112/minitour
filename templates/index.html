@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamphaeng Phet MiniTour</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Sarabun) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sarabun', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 h-screen flex flex-col overflow-hidden">
 
+    <!-- Header Navigation -->
+    <header class="bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-700 text-white px-6 py-4 shadow-lg flex-none z-10">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold tracking-wide flex items-center gap-2">🌳 MiniTour กำแพงเพชร</h1>
+                <p class="text-xs text-emerald-100 mt-0.5">ระบบแนะนำเส้นทางและพิกัดท่องเที่ยวเมืองชากังราว</p>
+            </div>
+            <span class="bg-white/20 text-xs px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/10">
+                Interactive Map ✨
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex flex-1 overflow-hidden flex-col md:flex-row">
+        
+        <!-- Left Sidebar: แนะนำข้อมูลการเดินทางและสถานที่ -->
+        <section class="w-full md:w-[420px] bg-white border-r border-slate-200 overflow-y-auto flex-none flex flex-col shadow-inner">
+            <div class="p-4 bg-slate-50/50 border-b border-slate-100 sticky top-0 backdrop-blur-md z-10">
+                <h2 class="text-sm font-semibold text-slate-500 tracking-wider uppercase">📍 จุดเช็คอินยอดนิยม</h2>
+            </div>
+            
+            <div class="p-4 space-y-4 flex-1">
+                {% for place in attractions %}
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-emerald-500 hover:shadow-lg transition-all duration-300 flex flex-col">
+                    <!-- ข้อมูลภาพประกอบ -->
+                    <div class="h-40 w-full relative bg-slate-100">
+                        <img src="{{ place.image }}" alt="{{ place.name }}" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-md bg-white/90 text-slate-800 shadow-sm backdrop-blur-sm">
+                            {{ place.type }}
+                        </span>
+                    </div>
+                    
+                    <!-- รายละเอียดสถานที่ -->
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-lg mb-1.5">{{ place.name }}</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">{{ place.desc }}</p>
+                        </div>
+                        
+                        <!-- ปุ่มเปิดนำทาง -->
+                        <a href="https://www.google.com/maps/dir/?api=1&destination={{ place.lat }},{{ place.lng }}" 
+                           target="_blank" 
+                           class="w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm py-2.5 px-4 rounded-xl shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2">
+                            🚗 กดเปิดแอปนำทาง (Google Maps)
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Right Section: ส่วนแสดงแผนที่ Folium -->
+        <section class="flex-1 h-full relative bg-slate-100">
+            <div class="w-full h-full">
+                {{ map_html | safe }}
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
