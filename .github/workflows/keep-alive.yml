@@ -17,4 +17,4 @@ jobs:
     - name: Send a Ping request to Render Web Service
       run: |
         # เปลี่ยน URL ด้านล่างนี้ให้เป็น URL บน Render ของคุณเอง
-        curl -I https://YOUR_APP_NAME.onrender.com
+        curl -I https://minitour.onrender.com/
