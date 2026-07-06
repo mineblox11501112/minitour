@@ -1,0 +1,20 @@
+name: Keep Render Web Service Alive
+
+on:
+  schedule:
+    # ตั้งเวลาให้ทำงานทุกๆ 14 นาที (จังหวะก่อนที่ Render จะเข้าสู่โหมดหลับที่ 15 นาที)
+    # ใช้รูปแบบ Cron Expression: นาที ชั่วโมง วัน เดือน วันในสัปดาห์
+    - cron: '*/14 * * * *'
+  
+  # ช่วยให้เราสามารถกดสั่งรันด้วยมือ (Manual) บนหน้าต่าง GitHub Actions ได้ด้วย
+  workflow_dispatch:
+
+jobs:
+  ping_render:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Send a Ping request to Render Web Service
+      run: |
+        # เปลี่ยน URL ด้านล่างนี้ให้เป็น URL บน Render ของคุณเอง
+        curl -I https://YOUR_APP_NAME.onrender.com
