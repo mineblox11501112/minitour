@@ -3,205 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Tour Trip One Day</title>
-    <!-- นำเข้าฟอนต์จาก Google Fonts -->
+    <title>Mini Tour One Day Trip</title>
+    <!-- Google Fonts: Inter & Prompt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Prompt:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg-color: #fafafa;
-            --text-main: #111111;
-            --text-muted: #666666;
-            --border-color: #eaeaea;
+            --text-primary: #111111;
+            --text-secondary: #666666;
+            --border-color: #e5e5e5;
+            --accent-color: #222222;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            font-family: 'Inter', 'Prompt', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
+            color: var(--text-primary);
             line-height: 1.6;
-        }
-
-        header {
-            text-align: center;
-            padding: 80px 20px 40px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-weight: 300;
-            font-size: 1.1rem;
+            padding: 40px 20px;
         }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
-        .locations-grid {
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        /* Places Grid Section */
+        .trip-timeline {
             display: flex;
             flex-direction: column;
-            gap: 60px;
-            margin-bottom: 80px;
-        }
-
-        .location-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 40px;
-            align-items: center;
+            margin-bottom: 60px;
         }
 
-        /* สลับฝั่งรูปและข้อความในแถวคู่เพื่อความสวยงาม */
-        .location-card:nth-child(even) .card-image {
-            order: 2;
-        }
-        .location-card:nth-child(even) .card-content {
-            order: 1;
-        }
-
-        .card-image img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        .card-content h2 {
-            font-size: 1.5rem;
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .card-content p {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 1rem;
-        }
-
-        .btn-route {
-            display: inline-block;
-            background-color: var(--text-main);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 2px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .btn-route:hover {
-            background-color: #333333;
-            transform: translateY(-2px);
-        }
-
-        .map-section {
-            padding: 60px 0;
-            background-color: #ffffff;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .map-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .map-container h2 {
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin-bottom: 40px;
-        }
-
-        /* ปรับแต่ง iframe ของ Folium */
-        .folium-map-wrapper {
+        .place-card {
+            display: grid;
+            grid-template-columns: 1fr;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            height: 500px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        @media (min-width: 768px) {
+            .place-card {
+                grid-template-columns: 250px 1fr;
+            }
+        }
+
+        .place-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .place-image {
             width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eee;
         }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
+        @media (min-width: 768px) {
+            .place-image {
+                height: 100%;
+            }
+        }
+
+        .place-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .place-header h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .place-number {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .place-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        /* Minimal Button Style */
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
             font-size: 0.85rem;
-            background-color: #ffffff;
+            font-weight: 400;
+            color: var(--text-primary);
+            background-color: transparent;
+            border: 1px solid var(--text-primary);
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-self: flex-start;
         }
 
-        @media (max-width: 768px) {
-            .location-card, .location-card:nth-child(even) {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .location-card:nth-child(even) .card-image {
-                order: 1;
-            }
-            .location-card:nth-child(even) .card-content {
-                order: 2;
-            }
-            header h1 {
-                font-size: 2rem;
-            }
+        .btn-nav:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+        }
+
+        .map-section h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .map-wrapper {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            margin-bottom: 30px;
+        }
+
+        .explore-route-container {
+            text-align: center;
+        }
+
+        .btn-explore {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: var(--accent-color);
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-explore:hover {
+            background-color: #444444;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Mini Tour Trip One Day</h1>
-        <p>แผนการเดินทาง 1 วัน สไตล์มินิมอล (พิกัด: ภูเก็ต)</p>
-    </header>
+    <div class="container">
+        <header>
+            <h1>One Day Mini Tour</h1>
+            <p>บันทึกการเดินทาง 1 วัน พักผ่อนและลิ้มรสเมืองเก่าตามพิกัดหมุดหมาย</p>
+        </header>
 
-    <main class="container">
-        <div class="locations-grid">
+        <!-- แสดงรายการสถานที่ -->
+        <div class="trip-timeline">
             {% for loc in locations %}
-            <article class="location-card">
-                <div class="card-image">
-                    <img src="{{ loc.img_url }}" alt="{{ loc.name }}">
+            <div class="place-card">
+                <img src="{{ loc.image_url }}" alt="{{ loc.name }}" class="place-image">
+                <div class="place-content">
+                    <div class="place-header">
+                        <h2>
+                            <span class="place-number">0{{ loc.id }}</span>
+                            {{ loc.name }}
+                        </h2>
+                        <p class="place-description">{{ loc.description }}</p>
+                    </div>
+                    <!-- ปุ่มข้อมูลเส้นทางรายสถานที่ -->
+                    <a href="https://www.google.com/maps/search/?api=1&query={{ loc.lat }},{{ loc.lng }}" target="_blank" class="btn-nav">
+                        ข้อมูลเส้นทาง
+                    </a>
                 </div>
-                <div class="card-content">
-                    <h2>0{{ loc.id }}. {{ loc.name }}</h2>
-                    <p>{{ loc.description }}</p>
-                    <a href="{{ loc.gmap_url }}" target="_blank" class="btn-route">ข้อมูลเส้นทาง</a>
-                </div>
-            </article>
-            {% end endfor %}
+            </div>
+            {% endfor %}
         </div>
-    </main>
 
-    <!-- ส่วนแผนที่ Folium ด้านล่างสุด -->
-    <section class="map-section">
-        <div class="map-container">
-            <h2>Route Map</h2>
-            <div class="folium-map-wrapper">
+        <!-- แผนที่ด้านล่างสุดของเว็บ -->
+        <section class="map-section">
+            <h3>Trip Map Route</h3>
+            <div class="map-wrapper">
                 {{ map_html|safe }}
             </div>
-        </div>
-    </section>
-
-    <footer>
-        &copy; 2026 Minimalist Tour Route. Designed with Flask & Folium.
-    </footer>
+            <!-- ปุ่มนำทางแบบรวมทริปไป Google Maps -->
+            <div class="explore-route-container">
+                <a href="{{ google_maps_route }}" target="_blank" class="btn-explore">
+                    Explore Route (Google Maps)
+                </a>
+            </div>
+        </section>
+    </div>
 
 </body>
 </html>
