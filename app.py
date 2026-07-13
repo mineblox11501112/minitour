@@ -42,6 +42,15 @@ ATTRACTIONS = [
         "type": "ไลฟ์สไตล์",
         "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80"
     }
+    {
+        "id": 5,
+        "name": "ริมแม่น้ำปิง (ตลาดโต้รุ่ง)",
+        "lat": 16.4822,
+        "lng": 99.5218,
+        "desc": "จุดพักผ่อนหย่อนใจและชมวิวพระอาทิตย์ตกดินริมน้ำปิง พร้อมแหล่งรวมของกินและสตรีทฟู้ดรสเด็ดของเมืองกำแพงเพชร",
+        "type": "ไลฟ์สไตล์",
+        "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80"
+    }
 ]
 
 @app.route('/')
