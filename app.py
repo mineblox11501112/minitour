@@ -62,10 +62,12 @@ def index():
     # วนลูปปักหมุดสถานที่บนแผนที่
     for place in ATTRACTIONS:
         color_map = {
-            "ธรรมชาติ": "green",
-            "วัฒนธรรม": "darkred",
-            "สุขภาพ": "blue",
-            "ไลฟ์สไตล์": "orange"
+            "ร้านอาหาร": "green",
+            "การศึกษา": "darkred",
+            "สถานที่ท่องเที่ยว": "blue",
+            "ร้านอาหาร": "orange",
+            "สถานที่ท่องเที่ยว": "red"
+            
         }
         marker_color = color_map.get(place["type"], "gray")
 
