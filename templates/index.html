@@ -3,245 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Tour One Day Trip</title>
-    <!-- Google Fonts: Inter & Prompt -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Prompt:wght@300;400;500&display=swap" rel="stylesheet">
-    
+    <title>Mini Tour Trip One Day</title>
+    <!-- โหลด Tailwind CSS ผ่าน CDN สำหรับสไตล์ Minimalist -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- โหลดฟอนต์ภาษาไทย 'Kanit' -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #fafafa;
-            --text-primary: #111111;
-            --text-secondary: #666666;
-            --border-color: #e5e5e5;
-            --accent-color: #222222;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: 'Inter', 'Prompt', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding: 40px 20px;
+            font-family: 'Kanit', sans-serif;
+            background-color: #FAFAFA;
         }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        header h1 {
-            font-size: 2.2rem;
-            font-weight: 500;
-            letter-spacing: -0.03em;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            font-weight: 300;
-        }
-
-        /* Places Grid Section */
-        .trip-timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .place-card {
-            display: grid;
-            grid-template-columns: 1fr;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        @media (min-width: 768px) {
-            .place-card {
-                grid-template-columns: 250px 1fr;
-            }
-        }
-
-        .place-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-
-        .place-image {
+        /* ปรับแต่งส่วนที่แสดงแผนที่ Folium ให้แสดงผลพอดี */
+        .map-container iframe {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background-color: #eee;
-        }
-
-        @media (min-width: 768px) {
-            .place-image {
-                height: 100%;
-            }
-        }
-
-        .place-content {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .place-header h2 {
-            font-size: 1.3rem;
-            font-weight: 500;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .place-number {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            padding: 2px 8px;
-            border-radius: 20px;
-        }
-
-        .place-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 300;
-            margin-bottom: 20px;
-        }
-
-        /* Minimal Button Style */
-        .btn-nav {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 20px;
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: var(--text-primary);
-            background-color: transparent;
-            border: 1px solid var(--text-primary);
-            border-radius: 4px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            align-self: flex-start;
-        }
-
-        .btn-nav:hover {
-            background-color: var(--accent-color);
-            color: #ffffff;
-        }
-
-        /* Map Section */
-        .map-section {
-            margin-top: 60px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 40px;
-        }
-
-        .map-section h3 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .map-wrapper {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            background: #ffffff;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-            margin-bottom: 30px;
-        }
-
-        .explore-route-container {
-            text-align: center;
-        }
-
-        .btn-explore {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 32px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #ffffff;
-            background-color: var(--accent-color);
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-explore:hover {
-            background-color: #444444;
+            height: 500px;
+            border-radius: 1rem;
+            border: 1px solid #eaeaea;
         }
     </style>
 </head>
-<body>
+<body class="text-gray-800 antialiased selection:bg-gray-900 selection:text-white">
 
-    <div class="container">
-        <header>
-            <h1>One Day Mini Tour</h1>
-            <p>บันทึกการเดินทาง 1 วัน พักผ่อนและลิ้มรสเมืองเก่าตามพิกัดหมุดหมาย</p>
-        </header>
+    <!-- Header Section -->
+    <header class="max-w-5xl mx-auto px-6 pt-20 pb-12 text-center">
+        <p class="text-sm font-medium tracking-widest text-gray-400 uppercase mb-2">One Day Trip</p>
+        <h1 class="text-4xl md:text-5xl font-semibold text-gray-900 mb-4">Mini Tour Trip</h1>
+        <p class="text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            สัมผัสประสบการณ์การเดินทางในหนึ่งวันกับสถานที่ไฮไลท์ที่เราคัดสรรมาให้คุณโดยเฉพาะ
+        </p>
+    </header>
 
-        <!-- แสดงรายการสถานที่ -->
-        <div class="trip-timeline">
-            {% for loc in locations %}
-            <div class="place-card">
-                <img src="{{ loc.image_url }}" alt="{{ loc.name }}" class="place-image">
-                <div class="place-content">
-                    <div class="place-header">
-                        <h2>
-                            <span class="place-number">0{{ loc.id }}</span>
-                            {{ loc.name }}
-                        </h2>
-                        <p class="place-description">{{ loc.description }}</p>
-                    </div>
-                    <!-- ปุ่มข้อมูลเส้นทางรายสถานที่ -->
-                    <a href="https://www.google.com/maps/search/?api=1&query={{ loc.lat }},{{ loc.lng }}" target="_blank" class="btn-nav">
-                        ข้อมูลเส้นทาง
-                    </a>
+    <!-- Places Listing Section -->
+    <main class="max-w-5xl mx-auto px-6 pb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- สมมติว่ารับตัวแปร places มาจาก Flask app.py -->
+            {% for place in places %}
+            <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 flex flex-col">
+                <div class="h-48 overflow-hidden bg-gray-100">
+                    <img src="{{ place.image_url }}" alt="{{ place.name }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                 </div>
-            </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-start justify-between mb-2">
+                        <h2 class="text-xl font-medium text-gray-900 leading-tight">{{ place.name }}</h2>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-6 flex-grow leading-relaxed">
+                        {{ place.description }}
+                    </p>
+                    <div class="mt-auto pt-4 border-t border-gray-50">
+                        <!-- ปุ่ม ข้อมูลเส้นทาง ไปยัง Google Maps ตามพิกัด -->
+                        <a href="https://www.google.com/maps/dir/?api=1&destination={{ place.lat }},{{ place.lng }}" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center justify-center w-full bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium py-2.5 px-4 rounded-xl transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            ข้อมูลเส้นทาง
+                        </a>
+                    </div>
+                </div>
+            </article>
             {% endfor %}
         </div>
+    </main>
 
-        <!-- แผนที่ด้านล่างสุดของเว็บ -->
-        <section class="map-section">
-            <h3>Trip Map Route</h3>
-            <div class="map-wrapper">
-                {{ map_html|safe }}
-            </div>
-            <!-- ปุ่มนำทางแบบรวมทริปไป Google Maps -->
-            <div class="explore-route-container">
-                <a href="{{ google_maps_route }}" target="_blank" class="btn-explore">
-                    Explore Route (Google Maps)
+    <!-- Map Section -->
+    <section class="bg-white border-t border-gray-100 py-16">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-8 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-900">แผนที่เส้นทางทั้งหมด</h3>
+                    <p class="text-gray-500 mt-2">ดูจุดแวะพักทั้งหมดในแผนที่ด้านล่าง</p>
+                </div>
+                <!-- ปุ่ม Explore Route ไปยัง Google Maps แบบจุดต่อจุด (ถ้าต้องการเชื่อมทุกจุด ให้ backend ส่ง URL รวมมา) -->
+                <a href="https://www.google.com/maps/dir/?api=1&destination=7.843915520247151,98.29361836977061" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center justify-center bg-white border border-gray-200 text-gray-900 hover:bg-gray-50 hover:border-gray-300 text-sm font-medium py-2.5 px-6 rounded-full transition-all duration-200 shadow-sm">
+                   <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                   </svg>
+                   Explore Route on Google Maps
                 </a>
             </div>
-        </section>
-    </div>
+            
+            <!-- แสดงผลแผนที่ Folium ที่รับมาจากตัวแปร map_html -->
+            <div class="map-container shadow-sm">
+                {{ map_html | safe }}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 py-8 text-center border-t border-gray-100">
+        <p class="text-sm text-gray-400">© 2026 Mini Tour Trip One Day. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>
