@@ -11,7 +11,7 @@ ATTRACTIONS = [
         "name": "ร้าน ครัวเก๋ากึ๊ก",
         "lat": 7.8807810948116,
         "lng": 98.38026804421995,
-        "desc": "เมื่อก่อนใครที่ผ่านไปมาแถวถนนกระ จะพบเห็นร้านอาหารเก่าแก่ คนใช้บริการจำนวนมาก​ ชื่อว่าร้าน"เก๋ากึ๊ก" แต่ตอนนี้ย้ายมาตั้งอยู่บนถนนพัฒนา อ.เมือง​จ.ภูเก็ต​(ใกล้กับมิสเตอร์​คอม)​ อาหารที่นี่จะเด่นมากเรื่องข้าวต้มปลา จะใช้เนื้อปลาที่สดในการปรุง ไม่ว่าจะเป็นเนื้อปลากะพง หรือปลาเก๋า น้ำซุปหอมหวาน พร้อมผักเคียงเยอะมาก เพราะความสดของปลาคนจึงนิยมสั่งอาหารซีฟู้ด แต่จะบอกว่า เมื่อนึกถึงอาหารพื้นเมือง ที่นี่ไม่น้อยหน้าใครเลย",
+        "desc": "เมื่อก่อนใครที่ผ่านไปมาแถวถนนกระ จะพบเห็นร้านอาหารเก่าแก่ คนใช้บริการจำนวนมาก​ ชื่อว่าร้าน\"เก๋ากึ๊ก\" แต่ตอนนี้ย้ายมาตั้งอยู่บนถนนพัฒนา อ.เมือง​จ.ภูเก็ต​(ใกล้กับมิสเตอร์​คอม)​ อาหารที่นี่จะเด่นมากเรื่องข้าวต้มปลา จะใช้เนื้อปลาที่สดในการปรุง ไม่ว่าจะเป็นเนื้อปลากะพง หรือปลาเก๋า น้ำซุปหอมหวาน พร้อมผักเคียงเยอะมาก เพราะความสดของปลาคนจึงนิยมสั่งอาหารซีฟู้ด แต่จะบอกว่า เมื่อนึกถึงอาหารพื้นเมือง ที่นี่ไม่น้อยหน้าใครเลย",
         "type": "ร้านอาหาร",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkZ4_2zbjiVK7ueWTUZjYWb0w9flnsDZ18rJktWEX1S3Y4HAKLViPYbBc&s=10"
     },
@@ -41,7 +41,7 @@ ATTRACTIONS = [
         "desc": "ร้านรสทิพย์ ขนมจีน พร้อมรับออเดอร์?",
         "type": "ร้านอาหาร",
         "image": "https://scontent-bkk1-2.xx.fbcdn.net/v/t39.30808-6/577979606_1379055050861917_8996505482751270036_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1366&ctp=s2048x1366&_nc_cat=103&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFc4rHjwQM6TPZy9fJryCsbjXqyVP3SJiiNerJU_dImKCTDMxOXrM0dCBC3AUTEyb1zEIik2pZ_mV_OU_wKeL-t&_nc_ohc=dR8wNAZP13AQ7kNvwGefxNn&_nc_oc=Adqr1vWLI1zio21SyHGBXat7adS2A3nVvU4D7oTplzYNfhLhgs_G1iLbBt0ElxpViYY&_nc_zt=23&_nc_ht=scontent-bkk1-2.xx&_nc_gid=51WM-PXgQ3xbQGFMCeK2Ag&_nc_ss=7b2a8&oh=00_AQDOZ_WqB-Q2wWbD6u4FwAaHSDCAvRBn6QazojW9oGGmgA&oe=6A5A201A"
-    }
+    }, # <-- แก้ไข: เติมเครื่องหมายจุลภาค ( , ) ตรงนี้เพื่อให้ List ทำงานได้ถูกต้อง
     {
         "id": 5,
         "name": "หาดกะรน",
@@ -67,7 +67,6 @@ def index():
             "สถานที่ท่องเที่ยว": "blue",
             "ร้านอาหาร": "orange",
             "สถานที่ท่องเที่ยว": "red"
-            
         }
         marker_color = color_map.get(place["type"], "gray")
 
@@ -96,5 +95,6 @@ def index():
     return render_template('index.html', map_html=map_html, attractions=ATTRACTIONS)
 
 if __name__ == '__main__':
+    # สำหรับการ Deploy ขึ้น Production แนะนำให้ตั้ง debug=False 
+    # แต่สามารถใช้พอร์ตเดิมตามที่คุณตั้งไว้ได้เลยครับ
     app.run(debug=True, host='0.0.0.0', port=5007)
-
