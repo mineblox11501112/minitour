@@ -4,96 +4,203 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Tour Trip One Day</title>
-    <!-- โหลด Tailwind CSS ผ่าน CDN สำหรับสไตล์ Minimalist -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- โหลดฟอนต์ภาษาไทย 'Kanit' -->
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- นำเข้าฟอนต์จาก Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Kanit', sans-serif;
-            background-color: #FAFAFA;
+        :root {
+            --bg-color: #fafafa;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --border-color: #eaeaea;
         }
-        /* ปรับแต่งส่วนที่แสดงแผนที่ Folium ให้แสดงผลพอดี */
-        .map-container iframe {
+
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-weight: 300;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .locations-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .location-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        /* สลับฝั่งรูปและข้อความในแถวคู่เพื่อความสวยงาม */
+        .location-card:nth-child(even) .card-image {
+            order: 2;
+        }
+        .location-card:nth-child(even) .card-content {
+            order: 1;
+        }
+
+        .card-image img {
             width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .card-content h2 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .card-content p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .btn-route {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-route:hover {
+            background-color: #333333;
+            transform: translateY(-2px);
+        }
+
+        .map-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .map-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .map-container h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 40px;
+        }
+
+        /* ปรับแต่ง iframe ของ Folium */
+        .folium-map-wrapper {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             height: 500px;
-            border-radius: 1rem;
-            border: 1px solid #eaeaea;
+            width: 100%;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            background-color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .location-card, .location-card:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .location-card:nth-child(even) .card-image {
+                order: 1;
+            }
+            .location-card:nth-child(even) .card-content {
+                order: 2;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
-<body class="text-gray-800 antialiased selection:bg-gray-900 selection:text-white">
+<body>
 
-    <!-- Header Section -->
-    <header class="max-w-5xl mx-auto px-6 pt-20 pb-12 text-center">
-        <p class="text-sm font-medium tracking-widest text-gray-400 uppercase mb-2">One Day Trip</p>
-        <h1 class="text-4xl md:text-5xl font-semibold text-gray-900 mb-4">Mini Tour Trip</h1>
-        <p class="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            สัมผัสประสบการณ์การเดินทางในหนึ่งวันกับสถานที่ไฮไลท์ที่เราคัดสรรมาให้คุณโดยเฉพาะ
-        </p>
+    <header>
+        <h1>Mini Tour Trip One Day</h1>
+        <p>แผนการเดินทาง 1 วัน สไตล์มินิมอล (พิกัด: ภูเก็ต)</p>
     </header>
 
-    <!-- Places Listing Section -->
-    <main class="max-w-5xl mx-auto px-6 pb-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- สมมติว่ารับตัวแปร places มาจาก Flask app.py -->
-            {% for place in places %}
-            <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 flex flex-col">
-                <div class="h-48 overflow-hidden bg-gray-100">
-                    <img src="{{ place.image_url }}" alt="{{ place.name }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+    <main class="container">
+        <div class="locations-grid">
+            {% for loc in locations %}
+            <article class="location-card">
+                <div class="card-image">
+                    <img src="{{ loc.img_url }}" alt="{{ loc.name }}">
                 </div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <div class="flex items-start justify-between mb-2">
-                        <h2 class="text-xl font-medium text-gray-900 leading-tight">{{ place.name }}</h2>
-                    </div>
-                    <p class="text-sm text-gray-500 mb-6 flex-grow leading-relaxed">
-                        {{ place.description }}
-                    </p>
-                    <div class="mt-auto pt-4 border-t border-gray-50">
-                        <!-- ปุ่ม ข้อมูลเส้นทาง ไปยัง Google Maps ตามพิกัด -->
-                        <a href="https://www.google.com/maps/dir/?api=1&destination={{ place.lat }},{{ place.lng }}" target="_blank" rel="noopener noreferrer" 
-                           class="inline-flex items-center justify-center w-full bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium py-2.5 px-4 rounded-xl transition-colors duration-200">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            ข้อมูลเส้นทาง
-                        </a>
-                    </div>
+                <div class="card-content">
+                    <h2>0{{ loc.id }}. {{ loc.name }}</h2>
+                    <p>{{ loc.description }}</p>
+                    <a href="{{ loc.gmap_url }}" target="_blank" class="btn-route">ข้อมูลเส้นทาง</a>
                 </div>
             </article>
-            {% endfor %}
+            {% end endfor %}
         </div>
     </main>
 
-    <!-- Map Section -->
-    <section class="bg-white border-t border-gray-100 py-16">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="mb-8 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
-                <div>
-                    <h3 class="text-2xl font-semibold text-gray-900">แผนที่เส้นทางทั้งหมด</h3>
-                    <p class="text-gray-500 mt-2">ดูจุดแวะพักทั้งหมดในแผนที่ด้านล่าง</p>
-                </div>
-                <!-- ปุ่ม Explore Route ไปยัง Google Maps แบบจุดต่อจุด (ถ้าต้องการเชื่อมทุกจุด ให้ backend ส่ง URL รวมมา) -->
-                <a href="https://www.google.com/maps/dir/?api=1&destination=7.843915520247151,98.29361836977061" target="_blank" rel="noopener noreferrer"
-                   class="inline-flex items-center justify-center bg-white border border-gray-200 text-gray-900 hover:bg-gray-50 hover:border-gray-300 text-sm font-medium py-2.5 px-6 rounded-full transition-all duration-200 shadow-sm">
-                   <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
-                   </svg>
-                   Explore Route on Google Maps
-                </a>
-            </div>
-            
-            <!-- แสดงผลแผนที่ Folium ที่รับมาจากตัวแปร map_html -->
-            <div class="map-container shadow-sm">
-                {{ map_html | safe }}
+    <!-- ส่วนแผนที่ Folium ด้านล่างสุด -->
+    <section class="map-section">
+        <div class="map-container">
+            <h2>Route Map</h2>
+            <div class="folium-map-wrapper">
+                {{ map_html|safe }}
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-50 py-8 text-center border-t border-gray-100">
-        <p class="text-sm text-gray-400">© 2026 Mini Tour Trip One Day. All rights reserved.</p>
+    <footer>
+        &copy; 2026 Minimalist Tour Route. Designed with Flask & Folium.
     </footer>
 
 </body>
