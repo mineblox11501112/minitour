@@ -86,5 +86,5 @@ def index():
 
 if __name__ == '__main__':
     # ดึงค่า Port จากระบบเพื่อรองรับการ Deploy บน Render หากรันในเครื่องตัวเองจะใช้ Port 8000 อัตโนมัติ เพื่อเลี่ยงพอร์ต 5000 ที่มักจะชน
-    port = int(os.environ.get("PORT", 8000))
+    port = int(os.environ.get("PORT", 5007))
     app.run(host='0.0.0.0', port=port, debug=True)
