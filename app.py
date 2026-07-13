@@ -10,7 +10,7 @@ LOCATIONS = [
         "lat": 7.8807810948116,
         "lng": 98.38026804421995,
         "description": "ร้านอาหารพื้นเมืองภูเก็ต บรรยากาศย้อนยุค ลิ้มลองรสชาติปักษ์ใต้แท้ๆ ในสไตล์โฮมเมด",
-        "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80"
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkZ4_2zbjiVK7ueWTUZjYWb0w9flnsDZ18rJktWEX1S3Y4HAKLViPYbBc&s=10"
     },
     {
         "id": 2,
@@ -18,7 +18,7 @@ LOCATIONS = [
         "lat": 7.883744348639161,
         "lng": 98.37355537007042,
         "description": "แหล่งเรียนรู้ทางประวัติศาสตร์และสถาปัตยกรรมชิโน-โปรตุกีสอันโดดเด่น",
-        "image_url": "https://images.unsplash.com/photo-1577985051167-0d49eec21977?auto=format&fit=crop&w=600&q=80"
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZH5_qrgng7LQj6JRcJ_HiId4PlpOaAKKv-MUqWE8PkHA-W5Vgs0V5OpUh&s=10"
     },
     {
         "id": 3,
@@ -26,7 +26,7 @@ LOCATIONS = [
         "lat": 7.876576971991001,
         "lng": 98.37616999111417,
         "description": "พื้นที่สีเขียวใจกลางเมือง เหมาะสำหรับการพักผ่อนหย่อนใจและเดินเล่นรับลม",
-        "image_url": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=600&q=80"
+        "image_url": "https://mpics.mgronline.com/pics/Images/568000011830705.JPEG"
     },
     {
         "id": 4,
@@ -34,7 +34,7 @@ LOCATIONS = [
         "lat": 7.879316505443622,
         "lng": 98.37236894452104,
         "description": "ร้านขนมจีนขึ้นชื่อรสชาติจัดจ้านสไตล์เมืองคอน พร้อมผักเหนาะสดๆ หลากหลายชนิด",
-        "image_url": "https://images.unsplash.com/photo-1617093727343-374698b1b08d?auto=format&fit=crop&w=600&q=80"
+        "image_url": "https://scontent-bkk1-2.xx.fbcdn.net/v/t39.30808-6/577979606_1379055050861917_8996505482751270036_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1366&ctp=s2048x1366&_nc_cat=103&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFc4rHjwQM6TPZy9fJryCsbjXqyVP3SJiiNerJU_dImKCTDMxOXrM0dCBC3AUTEyb1zEIik2pZ_mV_OU_wKeL-t&_nc_ohc=dR8wNAZP13AQ7kNvwGefxNn&_nc_oc=Adqr1vWLI1zio21SyHGBXat7adS2A3nVvU4D7oTplzYNfhLhgs_G1iLbBt0ElxpViYY&_nc_zt=23&_nc_ht=scontent-bkk1-2.xx&_nc_gid=51WM-PXgQ3xbQGFMCeK2Ag&_nc_ss=7b2a8&oh=00_AQDOZ_WqB-Q2wWbD6u4FwAaHSDCAvRBn6QazojW9oGGmgA&oe=6A5A201A"
     },
     {
         "id": 5,
@@ -42,7 +42,7 @@ LOCATIONS = [
         "lat": 7.843915520247151,
         "lng": 98.29361836977061,
         "description": "ชายหาดขาวสะอาดยาวสุดสายตา เลื่องชื่อเรื่องเม็ดทรายละเอียด",
-        "image_url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlUCYOBNfJVrWpfxDVTnesZf9E1cB8uc9nbmmBXS3lER0PQWIf9_R5FLTqNgbpKoInG57Ri07uFJwcDUWVJPR3coUes1g2mOxDdbNDU0xDagnjgzetde9A83iON0L_VhBfTXdnHoQ=w408-h306-k-no"
     }
 ]
 
