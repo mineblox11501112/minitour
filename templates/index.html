@@ -3,79 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phuket MiniTour</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts (Sarabun) -->
+    <title>Mini Tour One Day Trip</title>
+    <!-- Google Fonts: Inter & Prompt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Prompt:wght@300;400;500&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Sarabun', sans-serif; }
+        :root {
+            --bg-color: #fafafa;
+            --text-primary: #111111;
+            --text-secondary: #666666;
+            --border-color: #e5e5e5;
+            --accent-color: #222222;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Prompt', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        /* Places Grid Section */
+        .trip-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .place-card {
+            display: grid;
+            grid-template-columns: 1fr;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        @media (min-width: 768px) {
+            .place-card {
+                grid-template-columns: 250px 1fr;
+            }
+        }
+
+        .place-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .place-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        @media (min-width: 768px) {
+            .place-image {
+                height: 100%;
+            }
+        }
+
+        .place-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .place-header h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .place-number {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .place-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        /* Minimal Button Style */
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            background-color: transparent;
+            border: 1px solid var(--text-primary);
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .btn-nav:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+        }
+
+        .map-section h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .map-wrapper {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            margin-bottom: 30px;
+        }
+
+        .explore-route-container {
+            text-align: center;
+        }
+
+        .btn-explore {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: var(--accent-color);
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-explore:hover {
+            background-color: #444444;
+        }
     </style>
 </head>
-<body class="bg-slate-50 h-screen flex flex-col overflow-hidden">
+<body>
 
-    <!-- Header Navigation -->
-    <header class="bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-700 text-white px-6 py-4 shadow-lg flex-none z-10">
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold tracking-wide flex items-center gap-2">🌳 MiniTour ภูเก็ต</h1>
-                <p class="text-xs text-emerald-100 mt-0.5">ระบบแนะนำเส้นทางและพิกัดท่องเที่ยวจังหวัดภูเก็ต</p>
-            </div>
-            <span class="bg-white/20 text-xs px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/10">
-                Interactive Map ✨
-            </span>
-        </div>
-    </header>
+    <div class="container">
+        <header>
+            <h1>One Day Mini Tour</h1>
+            <p>บันทึกการเดินทาง 1 วัน พักผ่อนและลิ้มรสเมืองเก่าตามพิกัดหมุดหมาย</p>
+        </header>
 
-    <!-- Main Content Grid -->
-    <main class="flex flex-1 overflow-hidden flex-col md:flex-row">
-        
-        <!-- Left Sidebar: แนะนำข้อมูลการเดินทางและสถานที่ -->
-        <section class="w-full md:w-[420px] bg-white border-r border-slate-200 overflow-y-auto flex-none flex flex-col shadow-inner">
-            <div class="p-4 bg-slate-50/50 border-b border-slate-100 sticky top-0 backdrop-blur-md z-10">
-                <h2 class="text-sm font-semibold text-slate-500 tracking-wider uppercase">📍 จุดเช็คอินยอดนิยม</h2>
-            </div>
-            
-            <div class="p-4 space-y-4 flex-1">
-                {% for place in attractions %}
-                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-emerald-500 hover:shadow-lg transition-all duration-300 flex flex-col">
-                    <!-- ข้อมูลภาพประกอบ -->
-                    <div class="h-40 w-full relative bg-slate-100">
-                        <img src="{{ place.image }}" alt="{{ place.name }}" class="w-full h-full object-cover">
-                        <span class="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-md bg-white/90 text-slate-800 shadow-sm backdrop-blur-sm">
-                            {{ place.type }}
-                        </span>
+        <!-- แสดงรายการสถานที่ -->
+        <div class="trip-timeline">
+            {% for loc in locations %}
+            <div class="place-card">
+                <img src="{{ loc.image_url }}" alt="{{ loc.name }}" class="place-image">
+                <div class="place-content">
+                    <div class="place-header">
+                        <h2>
+                            <span class="place-number">0{{ loc.id }}</span>
+                            {{ loc.name }}
+                        </h2>
+                        <p class="place-description">{{ loc.description }}</p>
                     </div>
-                    
-                    <!-- รายละเอียดสถานที่ -->
-                    <div class="p-4 flex-1 flex flex-col justify-between">
-                        <div>
-                            <h3 class="font-bold text-slate-800 text-lg mb-1.5">{{ place.name }}</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-4">{{ place.desc }}</p>
-                        </div>
-                        
-                        <!-- ปุ่มเปิดนำทาง -->
-                        <a href="https://www.google.com/maps/dir/?api=1&destination={{ place.lat }},{{ place.lng }}" 
-                           target="_blank" 
-                           class="w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm py-2.5 px-4 rounded-xl shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2">
-                            🚗 กดเปิดแอปนำทาง (Google Maps)
-                        </a>
-                    </div>
+                    <!-- ปุ่มข้อมูลเส้นทางรายสถานที่ -->
+                    <a href="https://www.google.com/maps/search/?api=1&query={{ loc.lat }},{{ loc.lng }}" target="_blank" class="btn-nav">
+                        ข้อมูลเส้นทาง
+                    </a>
                 </div>
-                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- แผนที่ด้านล่างสุดของเว็บ -->
+        <section class="map-section">
+            <h3>Trip Map Route</h3>
+            <div class="map-wrapper">
+                {{ map_html|safe }}
+            </div>
+            <!-- ปุ่มนำทางแบบรวมทริปไป Google Maps -->
+            <div class="explore-route-container">
+                <a href="{{ google_maps_route }}" target="_blank" class="btn-explore">
+                    Explore Route (Google Maps)
+                </a>
             </div>
         </section>
-
-        <!-- Right Section: ส่วนแสดงแผนที่ Folium -->
-        <section class="flex-1 h-full relative bg-slate-100">
-            <div class="w-full h-full">
-                {{ map_html | safe }}
-            </div>
-        </section>
-
-    </main>
+    </div>
 
 </body>
 </html>
