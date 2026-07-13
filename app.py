@@ -17,39 +17,39 @@ ATTRACTIONS = [
     },
     {
         "id": 2,
-        "name": "อุทยานประวัติศาสตร์กำแพงเพชร",
-        "lat": 16.4886,
-        "lng": 99.5244,
-        "desc": "มรดกโลกทางวัฒนธรรม ชมโบราณสถานเก่าแก่ที่สร้างด้วยศิลาแลง ไฮไลท์คือวัดช้างรอบ และวัดพระแก้วกลางเมือง",
-        "type": "วัฒนธรรม",
-        "image": "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=600&q=80"
+        "name": "โรงเรียนภูเก็ตไทยหัวอาเซียนวิทยา(ฝั่งมัธยม)",
+        "lat": 7.883744348639161,
+        "lng": 98.37355537007042,
+        "desc": "โรงเรียนเน้นการเรียนแบบบูรณาการ 3 ภาษา ไทย จีน อังกฤษ",
+        "type": "การศึกษา",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZH5_qrgng7LQj6JRcJ_HiId4PlpOaAKKv-MUqWE8PkHA-W5Vgs0V5OpUh&s=10"
     },
     {
         "id": 3,
-        "name": "บ่อน้ำพุร้อนพระร่วง",
-        "lat": 16.6667,
-        "lng": 99.4444,
-        "desc": "ผ่อนคลายความเมื่อยล้ากับการแช่น้ำแร่ธรรมชาติเพื่อสุขภาพ มีทั้งบ่อแช่เท้าบริการฟรี และห้องแช่ส่วนตัวแบบเป็นส่วนตัว",
-        "type": "สุขภาพ",
-        "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80"
+        "name": " สวนเฉลิมพระเกียรติ",
+        "lat": 7.876576971991001,
+        "lng": 98.37616999111417,
+        "desc": "พญามังกรทอง” สวนเฉลิมพระเกียรติ 72 พรรษา มหาราชินีฯ แลนด์มาร์กจุดเช็กอินใกล้เมืองเก่าภูเก็ต",
+        "type": "สถานที่ท่องเที่ยว",
+        "image": "https://mpics.mgronline.com/pics/Images/568000011830705.JPEG"
     },
     {
         "id": 4,
-        "name": "ริมแม่น้ำปิง (ตลาดโต้รุ่ง)",
-        "lat": 16.4822,
-        "lng": 99.5218,
-        "desc": "จุดพักผ่อนหย่อนใจและชมวิวพระอาทิตย์ตกดินริมน้ำปิง พร้อมแหล่งรวมของกินและสตรีทฟู้ดรสเด็ดของเมืองกำแพงเพชร",
-        "type": "ไลฟ์สไตล์",
-        "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80"
+        "name": "ขนมจีนบ้านรสทิพย์ (ขนมจีนเมืองคอน ณ ภูเก็ต)",
+        "lat": 7.879316505443622,
+        "lng": 98.37236894452104,
+        "desc": "ร้านรสทิพย์ ขนมจีน พร้อมรับออเดอร์?",
+        "type": "ร้านอาหาร",
+        "image": "https://scontent-bkk1-2.xx.fbcdn.net/v/t39.30808-6/577979606_1379055050861917_8996505482751270036_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1366&ctp=s2048x1366&_nc_cat=103&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFc4rHjwQM6TPZy9fJryCsbjXqyVP3SJiiNerJU_dImKCTDMxOXrM0dCBC3AUTEyb1zEIik2pZ_mV_OU_wKeL-t&_nc_ohc=dR8wNAZP13AQ7kNvwGefxNn&_nc_oc=Adqr1vWLI1zio21SyHGBXat7adS2A3nVvU4D7oTplzYNfhLhgs_G1iLbBt0ElxpViYY&_nc_zt=23&_nc_ht=scontent-bkk1-2.xx&_nc_gid=51WM-PXgQ3xbQGFMCeK2Ag&_nc_ss=7b2a8&oh=00_AQDOZ_WqB-Q2wWbD6u4FwAaHSDCAvRBn6QazojW9oGGmgA&oe=6A5A201A"
     }
     {
         "id": 5,
-        "name": "ริมแม่น้ำปิง (ตลาดโต้รุ่ง)",
-        "lat": 16.4822,
-        "lng": 99.5218,
-        "desc": "จุดพักผ่อนหย่อนใจและชมวิวพระอาทิตย์ตกดินริมน้ำปิง พร้อมแหล่งรวมของกินและสตรีทฟู้ดรสเด็ดของเมืองกำแพงเพชร",
-        "type": "ไลฟ์สไตล์",
-        "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80"
+        "name": "หาดกะรน",
+        "lat": 7.843915520247151,
+        "lng": 98.29361836977061,
+        "desc": "หาดยาว 4 กม. มีน้ำทะเลใสสะอาดและเงียบสงบ รวมถึงหาดทรายสีทองทอดยาวที่มีรีสอร์ต",
+        "type": "สถานที่ท่องเที่ยว",
+        "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlUCYOBNfJVrWpfxDVTnesZf9E1cB8uc9nbmmBXS3lER0PQWIf9_R5FLTqNgbpKoInG57Ri07uFJwcDUWVJPR3coUes1g2mOxDdbNDU0xDagnjgzetde9A83iON0L_VhBfTXdnHoQ=w408-h306-k-no"
     }
 ]
 
