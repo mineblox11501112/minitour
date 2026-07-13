@@ -1,100 +1,89 @@
-import os
 from flask import Flask, render_template
 import folium
 
 app = Flask(__name__)
 
-# ข้อมูลสถานที่ท่องเที่ยวในกำแพงเพชร พร้อมรูปภาพและพิกัด
-ATTRACTIONS = [
+# ข้อมูลสถานที่
+LOCATIONS = [
     {
         "id": 1,
         "name": "ร้าน ครัวเก๋ากึ๊ก",
         "lat": 7.8807810948116,
         "lng": 98.38026804421995,
-        "desc": "เมื่อก่อนใครที่ผ่านไปมาแถวถนนกระ จะพบเห็นร้านอาหารเก่าแก่ คนใช้บริการจำนวนมาก​ ชื่อว่าร้าน\"เก๋ากึ๊ก\" แต่ตอนนี้ย้ายมาตั้งอยู่บนถนนพัฒนา อ.เมือง​จ.ภูเก็ต​(ใกล้กับมิสเตอร์​คอม)​ อาหารที่นี่จะเด่นมากเรื่องข้าวต้มปลา จะใช้เนื้อปลาที่สดในการปรุง ไม่ว่าจะเป็นเนื้อปลากะพง หรือปลาเก๋า น้ำซุปหอมหวาน พร้อมผักเคียงเยอะมาก เพราะความสดของปลาคนจึงนิยมสั่งอาหารซีฟู้ด แต่จะบอกว่า เมื่อนึกถึงอาหารพื้นเมือง ที่นี่ไม่น้อยหน้าใครเลย",
-        "type": "ร้านอาหาร",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkZ4_2zbjiVK7ueWTUZjYWb0w9flnsDZ18rJktWEX1S3Y4HAKLViPYbBc&s=10"
+        "description": "ร้านอาหารพื้นเมืองภูเก็ต บรรยากาศย้อนยุค ลิ้มลองรสชาติปักษ์ใต้แท้ๆ ในสไตล์โฮมเมดที่สืบทอดกันมา",
+        "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80"
     },
     {
         "id": 2,
-        "name": "โรงเรียนภูเก็ตไทยหัวอาเซียนวิทยา(ฝั่งมัธยม)",
+        "name": "โรงเรียนภูเก็ตไทยหัวอาเซียนวิทยา",
         "lat": 7.883744348639161,
         "lng": 98.37355537007042,
-        "desc": "โรงเรียนเน้นการเรียนแบบบูรณาการ 3 ภาษา ไทย จีน อังกฤษ",
-        "type": "การศึกษา",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZH5_qrgng7LQj6JRcJ_HiId4PlpOaAKKv-MUqWE8PkHA-W5Vgs0V5OpUh&s=10"
+        "description": "แหล่งเรียนรู้ทางประวัติศาสตร์และสถาปัตยกรรมชิโน-โปรตุกีสอันโดดเด่น สะท้อนวัฒนธรรมไทย-จีนของภูเก็ต",
+        "image_url": "https://images.unsplash.com/photo-1577985051167-0d49eec21977?auto=format&fit=crop&w=600&q=80"
     },
     {
         "id": 3,
-        "name": " สวนเฉลิมพระเกียรติ",
+        "name": "สวนเฉลิมพระเกียรติ (สวนหลวง ร.9)",
         "lat": 7.876576971991001,
         "lng": 98.37616999111417,
-        "desc": "พญามังกรทอง” สวนเฉลิมพระเกียรติ 72 พรรษา มหาราชินีฯ แลนด์มาร์กจุดเช็กอินใกล้เมืองเก่าภูเก็ต",
-        "type": "สถานที่ท่องเที่ยว",
-        "image": "https://mpics.mgronline.com/pics/Images/568000011830705.JPEG"
+        "description": "พื้นที่สีเขียวใจกลางเมือง เหมาะสำหรับการพักผ่อนหย่อนใจ เดินเล่นรับลม และชมทัศนียภาพอันร่มรื่น",
+        "image_url": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=600&q=80"
     },
     {
         "id": 4,
-        "name": "ขนมจีนบ้านรสทิพย์ (ขนมจีนเมืองคอน ณ ภูเก็ต)",
+        "name": "ขนมจีนบ้านรสทิพย์",
         "lat": 7.879316505443622,
         "lng": 98.37236894452104,
-        "desc": "ร้านรสทิพย์ ขนมจีน พร้อมรับออเดอร์?",
-        "type": "ร้านอาหาร",
-        "image": "https://scontent-bkk1-2.xx.fbcdn.net/v/t39.30808-6/577979606_1379055050861917_8996505482751270036_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1366&ctp=s2048x1366&_nc_cat=103&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFc4rHjwQM6TPZy9fJryCsbjXqyVP3SJiiNerJU_dImKCTDMxOXrM0dCBC3AUTEyb1zEIik2pZ_mV_OU_wKeL-t&_nc_ohc=dR8wNAZP13AQ7kNvwGefxNn&_nc_oc=Adqr1vWLI1zio21SyHGBXat7adS2A3nVvU4D7oTplzYNfhLhgs_G1iLbBt0ElxpViYY&_nc_zt=23&_nc_ht=scontent-bkk1-2.xx&_nc_gid=51WM-PXgQ3xbQGFMCeK2Ag&_nc_ss=7b2a8&oh=00_AQDOZ_WqB-Q2wWbD6u4FwAaHSDCAvRBn6QazojW9oGGmgA&oe=6A5A201A"
-    }, # <-- แก้ไข: เติมเครื่องหมายจุลภาค ( , ) ตรงนี้เพื่อให้ List ทำงานได้ถูกต้อง
+        "description": "ร้านขนมจีนขึ้นชื่อรสชาติจัดจ้านสไตล์เมืองคอน พร้อมผักเหนาะสดๆ หลากหลายชนิดให้เลือกทานคู่กัน",
+        "image_url": "https://images.unsplash.com/photo-1617093727343-374698b1b08d?auto=format&fit=crop&w=600&q=80"
+    },
     {
         "id": 5,
         "name": "หาดกะรน",
         "lat": 7.843915520247151,
         "lng": 98.29361836977061,
-        "desc": "หาดยาว 4 กม. มีน้ำทะเลใสสะอาดและเงียบสงบ รวมถึงหาดทรายสีทองทอดยาวที่มีรีสอร์ต",
-        "type": "สถานที่ท่องเที่ยว",
-        "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlUCYOBNfJVrWpfxDVTnesZf9E1cB8uc9nbmmBXS3lER0PQWIf9_R5FLTqNgbpKoInG57Ri07uFJwcDUWVJPR3coUes1g2mOxDdbNDU0xDagnjgzetde9A83iON0L_VhBfTXdnHoQ=w408-h306-k-no"
+        "description": "ชายหาดขาวสะอาดยาวสุดสายตา เลื่องชื่อเรื่องเม็ดทรายละเอียดและคลื่นลมที่เหมาะแก่การพักผ่อนชมพระอาทิตย์ตก",
+        "image_url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
     }
 ]
 
 @app.route('/')
 def index():
-    # สร้างแผนที่เริ่มต้น โฟกัสไปที่ใจกลางจังหวัดกำแพงเพชร
-    start_coords = [16.4886, 99.5244]
-    m = folium.Map(location=start_coords, zoom_start=10, control_scale=True)
-
-    # วนลูปปักหมุดสถานที่บนแผนที่
-    for place in ATTRACTIONS:
-        color_map = {
-            "ร้านอาหาร": "green",
-            "การศึกษา": "darkred",
-            "สถานที่ท่องเที่ยว": "blue",
-            "ร้านอาหาร": "orange",
-            "สถานที่ท่องเที่ยว": "red"
-        }
-        marker_color = color_map.get(place["type"], "gray")
-
-        # ลิงก์สำหรับกดเปิดแอป Google Maps นำทาง
-        nav_url = f"https://www.google.com/maps/dir/?api=1&destination={place['lat']},{place['lng']}"
-
-        # HTML Popup ตกแต่งแบบมีรูปภาพและปุ่มนำทางในหมุดแผนที่
-        popup_html = f"""
-        <div style="font-family: 'Sarabun', sans-serif; width: 220px;">
-            <img src="{place['image']}" style="width:100%; height:100px; object-fit:cover; border-radius:6px; margin-bottom:8px;">
-            <h4 style="margin: 0 0 4px 0; color: #0f172a; font-weight: bold; font-size:14px;">{place['name']}</h4>
-            <span style="background-color: #f1f5f9; color: #475569; padding: 2px 6px; font-size: 11px; border-radius: 4px; font-weight:600;">{place['type']}</span>
-            <p style="font-size: 12px; color: #475569; margin-top: 6px; line-height: 1.4; margin-bottom: 10px;">{place['desc']}</p>
-            <a href="{nav_url}" target="_blank" style="display: block; text-align: center; background-color: #059669; color: white; text-decoration: none; padding: 6px; font-size: 12px; border-radius: 4px; font-weight: bold;">🚗 นำทางด้วย Google Maps</a>
+    # 1. สร้างแผนที่
+    m = folium.Map(location=[7.875, 98.35], zoom_start=12, tiles="OpenStreetMap")
+    
+    # 2. วาดเส้นทางเชื่อมจุด
+    route_points = [(loc["lat"], loc["lng"]) for loc in LOCATIONS]
+    folium.PolyLine(route_points, color="#222222", weight=3, opacity=0.6).add_to(m)
+    
+    # 3. ปักหมุด พร้อมใส่ข้อมูลลงใน Popup เมื่อคลิกที่หมุด
+    for loc in LOCATIONS:
+        html_popup = f"""
+        <div style="font-family: sans-serif; width: 220px;">
+            <h4 style="margin: 0 0 8px 0; color: #222; font-size: 14px;">{loc['name']}</h4>
+            <img src="{loc['image_url']}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;">
+            <p style="font-size: 12px; color: #666; margin: 0 0 10px 0; line-height: 1.4;">{loc['description']}</p>
+            <a href="https://www.google.com/maps/search/?api=1&query={loc['lat']},{loc['lng']}" target="_blank" style="display: block; width: 100%; text-align: center; background: #222; color: #fff; text-decoration: none; padding: 8px 0; border-radius: 4px; font-size: 12px; font-weight: bold;">ไปที่ Google Maps</a>
         </div>
         """
+        # ตั้งค่าขนาดหน้าต่าง Popup
+        iframe = folium.IFrame(html_popup, width=240, height=280)
+        popup = folium.Popup(iframe, max_width=240)
         
         folium.Marker(
-            location=[place["lat"], place["lng"]],
-            popup=folium.Popup(popup_html, max_width=260),
-            tooltip=place["name"],
-            icon=folium.Icon(color=marker_color, icon="info-sign")
+            location=[loc["lat"], loc["lng"]],
+            popup=popup,
+            icon=folium.Icon(color="black", icon="info-sign")
         ).add_to(m)
-
+    
+    # 4. แปลงแผนที่เป็น HTML
     map_html = m._repr_html_()
-    return render_template('index.html', map_html=map_html, attractions=ATTRACTIONS)
+    
+    # 5. สร้างลิงก์นำทางรวมทุกจุด
+    google_maps_route = "https://www.google.com/maps/dir/" + "/".join([f"{loc['lat']},{loc['lng']}" for loc in LOCATIONS])
+    
+    # ส่งข้อมูลทั้งหมดไปประกอบร่างในไฟล์ templates/index.html
+    return render_template('index.html', locations=LOCATIONS, map_html=map_html, google_maps_route=google_maps_route)
 
 if __name__ == '__main__':
-    # สำหรับการ Deploy ขึ้น Production แนะนำให้ตั้ง debug=False 
-    # แต่สามารถใช้พอร์ตเดิมตามที่คุณตั้งไว้ได้เลยครับ
-    app.run(debug=True, host='0.0.0.0', port=5007)
+    app.run(debug=True)
